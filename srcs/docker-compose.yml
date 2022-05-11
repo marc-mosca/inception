@@ -1,8 +1,23 @@
-version: '3'
+version: '3.9'
+name: inception
+
 services:
-  mariadb:
-    build: ./mariadb
+
   nginx:
-    build: ./nginx
+    container_name: nginx
+
   wordpress:
-    build: ./wordpress
+    container_name: wordpress
+
+  mariadb:
+    container_name: mariadb
+
+volumes:
+
+  wp_db:
+
+  wp_data:
+
+network:
+
+
