@@ -1,23 +1,30 @@
-version: '3.9'
+version: "3.9"
 name: inception
 
 services:
 
   nginx:
     container_name: nginx
+    build:
+      context:  ./requirements/nginx
 
   wordpress:
     container_name: wordpress
+    build:
+      context:  ./requirements/wordpress
 
   mariadb:
     container_name: mariadb
+    build:
+      context:  ./requirements/mariadb
 
 volumes:
 
-  wp_db:
+  wordpress_db:
 
-  wp_data:
+  wordpress_data:
 
 network:
 
-
+  name: inception
+  driver: bridge
