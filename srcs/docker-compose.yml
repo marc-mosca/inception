@@ -5,22 +5,31 @@ services:
 
   nginx:
     container_name: nginx
+    image:  nginx
     build:
       context:  ./requirements/nginx
     ports:
       - "433:433"
+    networks:
+      - inception_network
     restart:  on-failure
 
   wordpress:
     container_name: wordpress
+    image:  wordpress
     build:
       context:  ./requirements/wordpress
+    networks:
+      - inception_network
     restart:  on-failure
 
   mariadb:
     container_name: mariadb
+    image:  mariadb
     build:
       context:  ./requirements/mariadb
+    networks:
+      - inception_network
     restart:  on-failure
 
 volumes:
@@ -33,5 +42,5 @@ volumes:
 networks:
 
   inception:
-    name: inception
+    name: inception_network
     driver: bridge
