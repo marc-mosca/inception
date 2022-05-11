@@ -7,16 +7,21 @@ services:
     container_name: nginx
     build:
       context:  ./requirements/nginx
+    ports:
+      - "433:433"
+    restart:  on-failure
 
   wordpress:
     container_name: wordpress
     build:
       context:  ./requirements/wordpress
+    restart:  on-failure
 
   mariadb:
     container_name: mariadb
     build:
       context:  ./requirements/mariadb
+    restart:  on-failure
 
 volumes:
 
@@ -24,7 +29,9 @@ volumes:
 
   wordpress_data:
 
-network:
+# TODO: lire plus de documentation sur le sujet
+networks:
 
-  name: inception
-  driver: bridge
+  inception:
+    name: inception
+    driver: bridge
