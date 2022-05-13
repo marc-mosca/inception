@@ -1,5 +1,4 @@
 version: "3.9"
-name: inception
 
 services:
 
@@ -11,7 +10,7 @@ services:
     ports:
       - "433:433"
     networks:
-      - inception_network
+      - inception
     restart:  on-failure
 
   wordpress:
@@ -20,7 +19,7 @@ services:
     build:
       context:  ./requirements/wordpress
     networks:
-      - inception_network
+      - inception
     restart:  on-failure
 
   mariadb:
@@ -29,7 +28,7 @@ services:
     build:
       context:  ./requirements/mariadb
     networks:
-      - inception_network
+      - inception
     restart:  on-failure
 
 volumes:
@@ -42,5 +41,4 @@ volumes:
 networks:
 
   inception:
-    name: inception_network
     driver: bridge
