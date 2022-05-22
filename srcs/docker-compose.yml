@@ -4,40 +4,47 @@ services:
 
   nginx:
     container_name: nginx
-    image:  nginx
+    image: nginx
     build:
-      context:  ./requirements/nginx
+      context: ./requirements/nginx
     ports:
       - "433:433"
     networks:
       - inception
-    restart:  on-failure
+    restart: on-failure
+    volumes:
+      - database:/var/www/html
+    depends_on: wordpress
 
   wordpress:
     container_name: wordpress
-    image:  wordpress
+    image: wordpress
     build:
-      context:  ./requirements/wordpress
+      context: ./requirements/wordpress
     networks:
       - inception
-    restart:  on-failure
+    restart: on-failure
+    volumes:
+      - website:/var/www/html
+    depends_on: mariadb
 
   mariadb:
     container_name: mariadb
-    image:  mariadb
+    image: mariadb
     build:
-      context:  ./requirements/mariadb
+      context: ./requirements/mariadb
     networks:
       - inception
-    restart:  on-failure
+    restart: on-failure
+    volumes:
+      - database:/var/lib/mysql
 
 volumes:
 
-  wordpress_db:
+  database:
 
-  wordpress_data:
+  website:
 
-# TODO: lire plus de documentation sur le sujet
 networks:
 
   inception:
