@@ -6,15 +6,21 @@
 #    By: mmosca <mmosca@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/02 15:04:42 by mmosca            #+#    #+#              #
-#    Updated: 2022/05/02 15:30:09 by mmosca           ###   ########lyon.fr    #
+#    Updated: 2022/05/26 15:50:15 by mmosca           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ## ~~~~ Operating System ~~~~ ##
-FROM alpine:3.14
+FROM debian:buster
 
 ## ~~~~ Image's metadatas ~~~~ ##
 LABEL version="1.0" maintainer="MOSCA Marc <mmosca@student42lyon.fr>"
 
 ## ~~~~ Variables ~~~~ ##
+ARG	APT="apt-get"
 ARG APT_FLAGS="-q -y"
+
+## ~~~~ Run ~~~~ ##
+RUN	$APT $APT_FLAGS update \
+&&	$APT $APT_FLAGS upgrade \
+&&	$APT clean
