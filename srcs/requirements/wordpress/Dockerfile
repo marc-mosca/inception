@@ -6,7 +6,7 @@
 #    By: mmosca <mmosca@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/02 15:04:42 by mmosca            #+#    #+#              #
-#    Updated: 2022/05/26 15:50:15 by mmosca           ###   ########.fr        #
+#    Updated: 2022/05/28 13:23:19 by mmosca           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LABEL version="1.0" maintainer="MOSCA Marc <mmosca@student42lyon.fr>"
 
 ## ~~~~ Variables ~~~~ ##
 ARG	APT="apt-get"
-ARG APT_FLAGS="-q -y"
+ARG APT_FLAGS="-qy"
 
 ## ~~~~ Run ~~~~ ##
 RUN	$APT $APT_FLAGS update \
