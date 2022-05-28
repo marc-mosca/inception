@@ -15,6 +15,9 @@ services:
     volumes:
       - database:/var/www/html
     depends_on: wordpress
+    secrets:
+      - inception_nginx.crt
+      - inception_nginx.key
 
   wordpress:
     container_name: wordpress
@@ -40,6 +43,10 @@ services:
       - database:/var/lib/mysql
 
 secrets:
+  inception_nginx.crt:
+    file: ./requirements/nginx/conf/inception_nginx.crt
+  inception_nginx.key:
+    file: ./requirements/nginx/conf/inception_nginx.key
 
 volumes:
 
