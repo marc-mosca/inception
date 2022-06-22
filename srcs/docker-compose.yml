@@ -1,0 +1,79 @@
+version: "3.9"
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    build:
+      context: ./requirements/mariadb
+      args:
+        - MYSQL_ROOT_PASSWORD
+        - MYSQL_DATABASE
+        - MYSQL_USER
+        - MYSQL_PASSWORD
+    networks:
+      - inception
+    restart: on-failure
+    volumes:
+      - db:/var/lib/mysql
+    init: true
+  nginx:
+    container_name: nginx
+    image: nginx
+    build:
+      context: ./requirements/nginx
+    ports:
+      - "443:443"
+    networks:
+      - inception
+    restart: on-failure
+    volumes:
+      - site:/var/www/html
+    depends_on:
+      - wordpress
+    init: true
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    build:
+      context: ./requirements/wordpress
+      args:
+        - DATABASE_ROOT_PASSWORD
+        - DATABASE_NAME
+        - DATABASE_USER
+        - DATABASE_PASSWORD
+        - MYSQL_DATABASE
+        - MYSQL_USER
+        - MYSQL_PASSWORD
+        - MYSQL_HOST
+    networks:
+      - inception
+    restart: on-failure
+    volumes:
+      - site:/var/www/html
+    depends_on:
+        - mariadb
+    env_file:
+      - .env
+    init: true
+
+volumes:
+  db:
+    name: db
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/mmosca/data/db
+      o: bind
+  site:
+    name: site
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/mmosca/data/site
+      o: bind
+
+networks:
+  inception:
+    name: inception
+    driver: bridge
